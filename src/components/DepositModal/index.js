@@ -19,7 +19,6 @@ export default function DepositModal({visible, coin, closeModal}) {
   const tokenContract = new web3.eth.Contract(tokenABI.abi, coin.tokenAddress);
 
   const deposit = async () => {
-    setIsWaitingForConfirmation(true);
     await tokenContract?.methods
       .approve(coin.mmAddress, amount)
       .send({ from: account })
