@@ -1,6 +1,7 @@
 .container {
   width: 100vw;
   height: 100vh;
+  top: 0;
   z-index: 1;
   background-color: rgba(0, 68, 89, 0.4);
   box-shadow: 0px 4px 12px rgba(24, 86, 105, 0.15);
@@ -50,7 +51,6 @@
 }
 
 .input {
-  width: 100%;
   padding: 12px;
 }
 

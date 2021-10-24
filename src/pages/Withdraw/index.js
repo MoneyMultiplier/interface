@@ -1,15 +1,14 @@
 import React, { useState } from "react";
-import CoinContainer from '../../components/CoinContainer';
+import WithdrawTokenItemContainer from '../../components/WithdrawTokenItemContainer';
 import DepositModal from "../../components/DepositModal";
 import Header from "../../components/HeaderContainer";
 import Menu from "../../components/MenuContainer";
 import { PolygonTokens } from "../../tokens/polygon";
 import "./index.css";
 
-export default function DepositPage() {
+export default function WithdrawPage() {
   const emptyCoin = {
     name: null,
-    normalYield: null,
     leveragedYield: null
   }
 
@@ -24,7 +23,7 @@ export default function DepositPage() {
   const closeModal = () => setIsModalVisible(false);
 
   const renderPolygonTokens = () => {
-    return PolygonTokens.map((token) => <CoinContainer key={token.name} coin={token} openModal={openModal}/>)
+    return PolygonTokens.map((token) => <WithdrawTokenItemContainer key={token.name} coin={token} openModal={openModal}/>)
   }
 
   const renderDepositListHeader = () => {

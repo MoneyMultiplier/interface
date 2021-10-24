@@ -23,12 +23,12 @@
 .tokenContainer {
   display: flex;
   align-items: center;
-  width: 50%;
+  width: 30%;
 }
 
 .yieldContainer {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width: 50%;
+  width: 70%;
 }

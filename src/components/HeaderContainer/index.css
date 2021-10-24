@@ -1,0 +1,31 @@
+.HeaderContainer {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  height: 160px;
+}
+
+.connectButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.15s ease-in-out 0s;
+  position: relative;
+  line-height: 1em;
+  background-image: none;
+  outline: none;
+  overflow: hidden;
+  box-sizing: border-box;
+  background-color: rgb(64, 153, 255);
+  border: none;
+  color: rgb(255, 255, 255);
+  box-shadow: rgb(50 50 93 / 11%) 0px 4px 6px 0px, rgb(0 0 0 / 8%) 0px 1px 3px 0px, rgb(0 0 0 / 6%) 0px 0px 1px 0px inset;
+  border-radius: 32px;
+  font-size: 16px;
+  font-weight: 600;
+  height: 48px;
+  margin: 0px auto;
+  padding: 8px 12px;
+  cursor: pointer;
+  will-change: transform;
+}

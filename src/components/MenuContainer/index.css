@@ -1,0 +1,17 @@
+.MenuContainer {
+  display: flex;
+  justify-content: space-around;
+  font-size: 20px;
+  border-bottom: 1px solid rgb(64, 153, 255);
+  padding-bottom: 16px;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.MenuItem {
+  cursor: pointer;
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
