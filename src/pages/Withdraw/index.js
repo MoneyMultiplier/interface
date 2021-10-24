@@ -26,9 +26,6 @@ export default function WithdrawPage() {
     return PolygonTokens.map((token) => <WithdrawTokenItemContainer key={token.name} coin={token} openModal={openModal}/>)
   }
 
-  const renderDepositListHeader = () => {
-  }
-
   return (
     <div>
       <main>

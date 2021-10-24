@@ -27,9 +27,6 @@ export default function DepositPage() {
     return PolygonTokens.map((token) => <CoinContainer key={token.name} coin={token} openModal={openModal}/>)
   }
 
-  const renderDepositListHeader = () => {
-  }
-
   return (
     <div>
       <main>

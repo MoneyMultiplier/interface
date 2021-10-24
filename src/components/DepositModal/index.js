@@ -1,18 +1,11 @@
 import React, { useState } from "react";
 import style from "./DepositModal.module.css";
 import Web3 from "web3";
-import useContract from "../../hooks/useContract";
 import useAccount from "../../hooks/useAccount";
 const AaveMoneyMultiplier = require("../../contracts/AaveMoneyMultiplier.json");
 const tokenABI = require("../../contracts/IERC20.json");
 
 export default function DepositModal({visible, coin, closeModal}) {
-  const [isWaitingForConfirmation, setIsWaitingForConfirmation] = useState(false);
-  const [isThanksModalVisible, setIsThanksModalVisible] = useState(false);
-  const [isErrorModalVisible, setIsErrorModalVisible] = useState(false);
-
-  const [simulationNormalYield, setSimulationNormalYield] = useState(0);
-  const [simulationLevaragedYield, setSimulationLevaragedYield] = useState(0);
   const [amount, setAmount] = useState("0");
 
   const { account } = useAccount();
@@ -37,18 +30,14 @@ export default function DepositModal({visible, coin, closeModal}) {
           .deposit(amount)
           .send({ from: account })
           .then(() => {
-            setIsWaitingForConfirmation(false);
-            setIsThanksModalVisible(true);
             closeModal();
           })
           .catch(() => {
-            setIsWaitingForConfirmation(false);
-            setIsErrorModalVisible(true);
+            console.log("error");
           });
       })
       .catch(() => {
-        setIsWaitingForConfirmation(false);
-        setIsErrorModalVisible(true);
+        console.log("error");
       });
   };
 
