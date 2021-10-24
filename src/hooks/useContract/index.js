@@ -1,15 +1,15 @@
 import { useState, useEffect, useCallback } from "react";
 import Web3 from "web3";
 
-const ContractXXX = require("../../contracts/ContractXXX.json");
+const AaveMoneyMultiplier = require("../../contracts/AaveMoneyMultiplier.json");
 
 export default function useContract(contractAddress) {
   const [contract, setContract] = useState();
 
-  const setupWeb3 = useCallback(async () => {
+  const setupWeb3 = useCallback(() => {
     const web3 = new Web3(window.ethereum || "http://localhost:8545");
-
-    setContract(new web3.eth.Contract(ContractXXX.abi, contractAddress));
+    console.log("contract add:", contractAddress);
+    setContract(new web3.eth.Contract(AaveMoneyMultiplier.abi, contractAddress));
   }, []);
 
   useEffect(() => {
@@ -17,7 +17,6 @@ export default function useContract(contractAddress) {
   }, [setupWeb3]);
 
   return {
-    contract,
-    CONTRACT_ADDRESS,
+    contract
   };
 }

@@ -1,14 +1,58 @@
 import React, { useState } from "react";
 import style from "./DepositModal.module.css";
+import Web3 from "web3";
+import useContract from "../../hooks/useContract";
+import useAccount from "../../hooks/useAccount";
+const AaveMoneyMultiplier = require("../../contracts/AaveMoneyMultiplier.json");
+const tokenABI = require("../../contracts/IERC20.json");
 
 export default function DepositModal({visible, coin, closeModal}) {
+  const [isWaitingForConfirmation, setIsWaitingForConfirmation] = useState(false);
+  const [isThanksModalVisible, setIsThanksModalVisible] = useState(false);
+  const [isErrorModalVisible, setIsErrorModalVisible] = useState(false);
+
   const [simulationNormalYield, setSimulationNormalYield] = useState(0);
   const [simulationLevaragedYield, setSimulationLevaragedYield] = useState(0);
+  const [amount, setAmount] = useState(0);
+
+  const { account } = useAccount();
 
   const simulate = (value) => {
-    setSimulationNormalYield(value + (value * (coin.normalYield / 100)))
-    setSimulationLevaragedYield(value + (value * (coin.leveragedYield / 100)))
+    setSimulationNormalYield(value + (value * (coin.normalYield / 100)));
+    setSimulationLevaragedYield(value + (value * (coin.leveragedYield / 100)));
+    setAmount(value);
   }
+
+  const web3 = new Web3(window.ethereum || "http://localhost:8545");
+  const mmContract = new web3.eth.Contract(AaveMoneyMultiplier.abi, coin.mmAddress);
+  const tokenContract = new web3.eth.Contract(tokenABI.abi, coin.tokenAddress);
+
+  const deposit = async () => {
+    setIsWaitingForConfirmation(true);
+    await tokenContract?.methods
+      .approve(coin.mmAddress, Web3.utils.toWei(amount.toString(), "ether"))
+      .send({ from: account })
+      .then(() => {
+        mmContract?.methods
+          .deposit(Web3.utils.toWei(amount.toString(), "ether"))
+          .send({ from: account })
+          .then(() => {
+            setIsWaitingForConfirmation(false);
+            setIsThanksModalVisible(true);
+            closeModal();
+          })
+          .catch(() => {
+            setIsWaitingForConfirmation(false);
+            setIsErrorModalVisible(true);
+          });
+      })
+      .catch(() => {
+        console.log("falhou");
+        setIsWaitingForConfirmation(false);
+        setIsErrorModalVisible(true);
+      });
+  };
+
 
   const isOpen = (
     <div className={style.container}>
@@ -38,7 +82,7 @@ export default function DepositModal({visible, coin, closeModal}) {
           </div>
         </div>
         
-        <button className={style.button}>DEPOSIT</button>
+        <button className={style.button} onClick={() => deposit()}>DEPOSIT</button>
       </div>
     </div>
   )
