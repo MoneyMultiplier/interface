@@ -19,6 +19,7 @@ export default function DepositModal({visible, coin, closeModal}) {
   const tokenContract = new web3.eth.Contract(tokenABI.abi, coin.tokenAddress);
 
   const deposit = async () => {
+    console.log(amount);
     await tokenContract?.methods
       .approve(coin.mmAddress, amount)
       .send({ from: account })
@@ -45,7 +46,7 @@ export default function DepositModal({visible, coin, closeModal}) {
         <div className={style.close} onClick={closeModal}>X</div>
         
         <div className={style.tokenContainer}>
-          <img src={coin.image} width="36px" height="36px" />
+          <img alt="asd" src={coin.image} width="36px" height="36px" />
           <div className={style.name}>{coin.name}</div>
         </div>
 

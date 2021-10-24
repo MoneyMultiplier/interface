@@ -6,7 +6,7 @@ export default function useAccount() {
 
   const setupWeb3 = useCallback(async () => {
     const web3 = new Web3(
-      window.web3.currentProvider || "http://localhost:8545"
+      window.ethereum
     );
     const accounts = await web3.eth.getAccounts();
 

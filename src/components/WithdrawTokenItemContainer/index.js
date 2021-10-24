@@ -6,8 +6,8 @@ import "./index.css";
 const AaveMoneyMultiplier = require("../../contracts/AaveMoneyMultiplier.json");
 
 
-export default function WithdrawTokenItemContainer({coin, openModal}) {
-  const [scaledBalance, setScaledBalance] = useState(10);
+export default function WithdrawTokenItemContainer({coin}) {
+  const [scaledBalance, setScaledBalance] = useState("0");
   const { account } = useAccount();
 
   const web3 = new Web3(window.ethereum);
@@ -15,10 +15,9 @@ export default function WithdrawTokenItemContainer({coin, openModal}) {
 
   const getScaledBalance = useCallback(async () => {
     try {
-      const total = await mmContract?.methods.scaledBalanceOf(account).call();
-      setScaledBalance(
-        parseFloat(Web3.utils.fromWei(total.toString(), "ether"))
-      );
+      const accounts = await web3.eth.getAccounts();
+      const total = await mmContract?.methods.scaledBalanceOf(accounts[0]).call();
+      setScaledBalance(total.toString());
     } catch (error) {
       console.log(error);
     }
@@ -31,14 +30,14 @@ export default function WithdrawTokenItemContainer({coin, openModal}) {
 
   const withdraw = () => {
     mmContract?.methods
-      .withdraw("10000")
+      .withdraw(10000)
       .send({ from: account })
   }
 
   return (
     <div className="CoinContainer">
       <div className="tokenContainer">
-        <img src={coin.image} width="36px" height="36px" />
+        <img alt="asd" src={coin.image} width="36px" height="36px" />
         <div className="name">{coin.name}</div>
       </div>
 

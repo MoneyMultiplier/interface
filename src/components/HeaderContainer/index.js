@@ -4,9 +4,7 @@ import './index.css';
 export default function HeaderContainer() {
   const {
     isWalletConnected,
-    connectWallet,
-    connectNetwork,
-    isNetworkConnected,
+    connectWallet
   } = useBlockchain();
 
   const renderConnectWalletButton = () => {

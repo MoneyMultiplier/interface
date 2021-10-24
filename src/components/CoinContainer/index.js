@@ -4,7 +4,7 @@ export default function CoinContainer({coin, openModal}) {
   return (
     <div className={style.CoinContainer} onClick={() => openModal(coin)}>
       <div className={style.tokenContainer}>
-        <img src={coin.image} width="36px" height="36px" />
+        <img alt="asd" src={coin.image} width="36px" height="36px" />
         <div className={style.name}>{coin.name}</div>
       </div>
 
