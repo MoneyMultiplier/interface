@@ -15,7 +15,7 @@ export default function WithdrawTokenItemContainer({coin, openModal}) {
 
   const getScaledBalance = useCallback(async () => {
     try {
-      const total = await mmContract?.methods.scaledBalanceOf(account);
+      const total = await mmContract?.methods.scaledBalanceOf(account).call();
       setScaledBalance(
         parseFloat(Web3.utils.fromWei(total.toString(), "ether"))
       );

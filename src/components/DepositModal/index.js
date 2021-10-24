@@ -13,7 +13,7 @@ export default function DepositModal({visible, coin, closeModal}) {
 
   const [simulationNormalYield, setSimulationNormalYield] = useState(0);
   const [simulationLevaragedYield, setSimulationLevaragedYield] = useState(0);
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState("0");
 
   const { account } = useAccount();
 
@@ -30,11 +30,11 @@ export default function DepositModal({visible, coin, closeModal}) {
   const deposit = async () => {
     setIsWaitingForConfirmation(true);
     await tokenContract?.methods
-      .approve(coin.mmAddress, Web3.utils.toWei(amount.toString(), "ether"))
+      .approve(coin.mmAddress, amount)
       .send({ from: account })
       .then(() => {
         mmContract?.methods
-          .deposit(Web3.utils.toWei(amount.toString(), "ether"))
+          .deposit(amount)
           .send({ from: account })
           .then(() => {
             setIsWaitingForConfirmation(false);
@@ -47,7 +47,6 @@ export default function DepositModal({visible, coin, closeModal}) {
           });
       })
       .catch(() => {
-        console.log("falhou");
         setIsWaitingForConfirmation(false);
         setIsErrorModalVisible(true);
       });
@@ -71,17 +70,8 @@ export default function DepositModal({visible, coin, closeModal}) {
         
         <div className={style.inputContainer}>
           <span>Amount:</span>
-          <input className={style.input} type="number" onChange={(event) => simulate(parseInt(event.target.value))}/>
-        </div>
-        
-        <div className={style.simulationContainer}>
-          <div>Simulation:</div>
-          <div className={style.simulationTypes}>
-            <div>Normal Yield: {simulationNormalYield}</div>
-            <div>Leveraged Yield: {simulationLevaragedYield}</div>
-          </div>
-        </div>
-        
+          <input className={style.input} value={amount} type="text" onChange={(event) => simulate(parseInt(event.target.value))}/>
+        </div>  
         <button className={style.button} onClick={() => deposit()}>DEPOSIT</button>
       </div>
     </div>
