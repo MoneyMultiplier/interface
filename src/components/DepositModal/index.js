@@ -57,7 +57,7 @@ export default function DepositModal({visible, coin, closeModal}) {
         
         <div className={style.inputContainer}>
           <span>Amount:</span>
-          <input className={style.input} value={amount} type="text" onChange={(event) => simulate(parseInt(event.target.value))}/>
+          <input className={style.input} type="text" onChange={(event) => simulate(parseInt(event.target.value))}/>
         </div>  
         <button className={style.button} onClick={() => deposit()}>DEPOSIT</button>
       </div>
