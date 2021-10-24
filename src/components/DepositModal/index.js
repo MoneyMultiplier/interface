@@ -11,8 +11,6 @@ export default function DepositModal({visible, coin, closeModal}) {
   const { account } = useAccount();
 
   const simulate = (value) => {
-    setSimulationNormalYield(value + (value * (coin.normalYield / 100)));
-    setSimulationLevaragedYield(value + (value * (coin.leveragedYield / 100)));
     setAmount(value);
   }
 
